@@ -19,7 +19,19 @@ The features of Compose that make it effective are:
 
 [Features](https://docs.docker.com/compose/#features)
 
+### The Compose application model [(link)](https://docs.docker.com/compose/compose-file/#the-compose-application-model)
+Set of containers whitch have to run together with adequade shared resources and comminication channels.
+
+- [Services](https://docs.docker.com/compose/compose-file/#services-top-level-element) -> computing components
+- [Networks](https://docs.docker.com/compose/compose-file/#networks-top-level-element) -> The layer that allow services to communicate with each other. Plataform capability abstraction to estabilish an IP route between containers within services connected together
+- [Volumes](https://docs.docker.com/compose/compose-file/#volumes-top-level-element) -> where services store and share persistent data
+
+#### Services
+Computing resouce within an application with can be scaled/replaced idependently from other componentes. Are defined by a Docker image and set of runtime arguments.
+
 ### Compose file
 The Compose file is a YAML file defining services, networks, and volumes for a Docker application.
 
 [Compose File](https://docs.docker.com/compose/compose-file/)
+
+[init(PID 1)](https://docs.docker.com/compose/compose-file/#init)
