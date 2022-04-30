@@ -1,6 +1,45 @@
 # Inception
 System Administration project to learn docker compose
 
+## Dockerfile
+
+### [CMD](https://docs.docker.com/engine/reference/builder/#cmd)
+Provide defaults for an executing container.
+The `CMD` instruction has three forms:
+- exec form (preferred form)
+```
+CMD ["executable","param1","param2"]
+```
+- defaut parameters to ENTRYPOINT
+```
+CMD ["param1","param2"]
+```
+- shell form
+````
+CMD command param1 param2
+````
+
+Unlike the shell form, the exec form does not invoke a command shell.
+
+Note: `RUN` actually runs a command and commits the result; `CMD` does not execute anything at build time, but specifies the intended command for the image.
+
+### [ENTRYPOINT](https://docs.docker.com/engine/reference/builder/#entrypoint)
+Allows you to configure a container that will run as an executable.
+Has two forms:
+
+- exec form (preferred form):
+
+```
+ENTRYPOINT ["executable", "param1", "param2"
+```
+- shell form:
+```
+ENTRYPOINT command param1 param2
+```
+
+Note: When shell form is used, `ENTRYPOINT` will be started as a subcommand of `/bin/sh -c`, which does not pass signals. This means that the executable will not be the container’s `PID 1` - and will not receive Unix signals - so your executable will not receive a SIGTERM from `docker stop <container>`.
+
+
 ## Docker Compose
 
 - tool for defining and running multi-container Docker applications
