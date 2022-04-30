@@ -4,7 +4,7 @@ WORKDIR /
 
 RUN apt update; \
 	apt install -y \
-	nginx
+	nginx \
+	procps
 
-ENTRYPOINT	service nginx start && \
-			tail -f /dev/null
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
