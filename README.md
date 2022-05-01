@@ -40,6 +40,14 @@ ENTRYPOINT command param1 param2
 Note: When shell form is used, `ENTRYPOINT` will be started as a subcommand of `/bin/sh -c`, which does not pass signals. This means that the executable will not be the container’s `PID 1` - and will not receive Unix signals - so your executable will not receive a SIGTERM from `docker stop <container>`.
 
 
+## Nginx Image
+
+A container stands up while its main process (PID 1) is running. Therefore, the `ENTRYPOINT` command must be something that runs until it receives a signal.
+
+For the nginx container, which works as our web server, it is a good pratrice to use `ENTRYPOINT ["nginx", "-g", "daemon off;"]`. This command starts nginx in foreground because of the diective `deamon off;`. Thus, nginx is the only service of this container running on PID 1.
+
+[stack overflow - difference between nginx daemon on/off option](https://stackoverflow.com/questions/25970711/what-is-the-difference-between-nginx-daemon-on-off-option#:~:text=For%20Docker%20containers%20(or%20for%20debugging)%2C%20the%20daemon%20off%3B%20directive%20tells%20Nginx%20to%20stay%20in%20the%20foreground.%20For%20containers%20this%20is%20useful%20as%20best%20practice%20is%20for%20one%20container%20%3D%20one%20process.%20One%20server%20(container)%20has%20only%20one%20service.)
+
 ## Docker Compose
 
 - tool for defining and running multi-container Docker applications
