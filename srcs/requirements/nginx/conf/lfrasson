@@ -1,0 +1,27 @@
+server {
+	listen 443 ssl;
+	listen [::]:443 ssl;
+
+	server_name _ lfrasson.42.com www.lfrasson.42.com;
+	
+	root /var/www/lfrasson;
+	index index.html index.htm index.nginx-debian.html;
+	
+	include snippets/self-signed.conf;
+	include snippets/ssl-params.conf;
+
+	location / {
+		root /var/www/lfrasson/html;
+		try_files $uri $uri/ =404;
+	}
+
+}
+
+server {
+	listen 80;
+	listen [::]:80;
+
+	server_name _ lfrasson.42.com www.lfrasson.42.com;
+
+	return 302 https://$server_name$request_uri;
+}
