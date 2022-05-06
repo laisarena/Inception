@@ -2,7 +2,7 @@ server {
 	listen 443 ssl;
 	listen [::]:443 ssl;
 
-	server_name _ lfrasson.42.com www.lfrasson.42.com;
+	server_name lfrasson.42.fr www.lfrasson.42.fr;
 	
 	root /var/www/lfrasson;
 	index index.html index.htm index.nginx-debian.html;
@@ -14,14 +14,13 @@ server {
 		root /var/www/lfrasson/html;
 		try_files $uri $uri/ =404;
 	}
-
 }
 
 server {
 	listen 80;
 	listen [::]:80;
 
-	server_name _ lfrasson.42.com www.lfrasson.42.com;
+	server_name lfrasson.42.fr www.lfrasson.42.fr;
 
 	return 302 https://$server_name$request_uri;
 }
