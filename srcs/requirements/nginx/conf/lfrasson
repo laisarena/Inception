@@ -5,7 +5,7 @@ server {
 	server_name DOMAIN_NAME www.DOMAIN_NAME;
 	
 	root /var/www/lfrasson;
-	index index.html index.htm index.nginx-debian.html;
+	index index.html index.htm index.php;
 	
 	include snippets/self-signed.conf;
 	include snippets/ssl-params.conf;
@@ -13,6 +13,11 @@ server {
 	location / {
 		root /var/www/lfrasson;
 		try_files $uri $uri/ =404;
+	}
+	
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/run/php/php7.3-fpm.sock;
 	}
 }
 
