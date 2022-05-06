@@ -19,9 +19,11 @@ RUN openssl req -new -nodes -x509 \
 	-out /etc/ssl/certs/nginx-selfsigned.crt \
 	-subj "/C=BR/ST=Sao Paulo/L=Sao Paulo/O=42 School/OU=lfrasson/CN=lfrasson.42.com"
 
+ENV DOMAIN_NAME "ftserver.com" 
 
 RUN mkdir /var/www/lfrasson && \
 	mv /srcs/lfrasson /etc/nginx/sites-available/ && \
+	sed -i "s/DOMAIN_NAME/$DOMAIN_NAME/g" /etc/nginx/sites-available/lfrasson && \
 	ln -s /etc/nginx/sites-available/lfrasson etc/nginx/sites-enabled/ && \
 	mv /srcs/self-signed.conf /etc/nginx/snippets/ && \
 	mv /srcs/ssl-params.conf /etc/nginx/snippets/ && \
