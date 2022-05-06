@@ -2,7 +2,7 @@ server {
 	listen 443 ssl;
 	listen [::]:443 ssl;
 
-	server_name lfrasson.42.fr www.lfrasson.42.fr;
+	server_name ftserver.com www.ftserver.com;
 	
 	root /var/www/lfrasson;
 	index index.html index.htm index.nginx-debian.html;
@@ -11,7 +11,7 @@ server {
 	include snippets/ssl-params.conf;
 
 	location / {
-		root /var/www/lfrasson/html;
+		root /var/www/lfrasson;
 		try_files $uri $uri/ =404;
 	}
 }
@@ -20,7 +20,7 @@ server {
 	listen 80;
 	listen [::]:80;
 
-	server_name lfrasson.42.fr www.lfrasson.42.fr;
+	server_name ftserver.com www.ftserver.com;
 
 	return 302 https://$server_name$request_uri;
 }
