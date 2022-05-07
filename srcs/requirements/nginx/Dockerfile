@@ -6,6 +6,14 @@ RUN apt update; \
 	apt install -y \
 	nginx \
 	openssl \
+	php7.3 \
+	php7.3-fpm \
+	php7.3-opcache \
+	php7.3-cli \
+	php7.3-gd \
+	php7.3-curl \
+	php7.3-mysql \
+	php7.3-mbstring \
 	procps \
 	vim
 
@@ -27,9 +35,9 @@ RUN mkdir /var/www/lfrasson && \
 	ln -s /etc/nginx/sites-available/lfrasson etc/nginx/sites-enabled/ && \
 	mv /srcs/self-signed.conf /etc/nginx/snippets/ && \
 	mv /srcs/ssl-params.conf /etc/nginx/snippets/ && \
-	mv /srcs/index.html /var/www/lfrasson/
+	mv /srcs/index.php /var/www/lfrasson/
 
 EXPOSE 443
 
-#ENTRYPOINT ["tail", "-f", "/dev/null"]
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
+#CMD ["service", "php7.3-fpm", "start"]
