@@ -6,24 +6,23 @@
 #    By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/29 22:01:06 by lfrasson          #+#    #+#              #
-#    Updated: 2022/05/07 15:40:02 by lfrasson         ###   ########.fr        #
+#    Updated: 2022/05/07 15:36:35 by lfrasson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-COMPOSE_FILE= docker-compose.yml
+IMAGE		:=	mariadb
+CONTAINER	:=	mariadb
 
 build:
-	cd srcs/ && docker-compose -f $(COMPOSE_FILE) up --build -d
+	docker build -t $(IMAGE) .
 
-down:
-	cd srcs/ && docker-compose -f $(COMPOSE_FILE) down 
+run:
+	docker run -d --rm --name $(CONTAINER) $(IMAGE)
 
-.PHONY:	build down
+exec:
+	docker exec -it $(CONTAINER) /bin/bash
 
-nginx-exec:
-	make exec -C ./srcs/requirements/nginx
-.PHONY: nginx-exec
+stop:
+	docker stop $(CONTAINER)
 
-mariadb-exec:
-	make exec -C ./srcs/requirements/mariadb
-.PHONY: mariadb-exec
+.PHONY:	build run exec stop
