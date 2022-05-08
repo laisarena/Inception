@@ -73,12 +73,34 @@ Set of containers whitch have to run together with adequade shared resources and
 - [Networks](https://docs.docker.com/compose/compose-file/#networks-top-level-element) -> The layer that allow services to communicate with each other. Plataform capability abstraction to estabilish an IP route between containers within services connected together
 - [Volumes](https://docs.docker.com/compose/compose-file/#volumes-top-level-element) -> where services store and share persistent data
 
-#### Services
+### Services
 Computing resouce within an application with can be scaled/replaced idependently from other componentes. Are defined by a Docker image and set of runtime arguments.
+
+### Volumes
+Persistent data stores.
+
+References:
+- [Manage data in Docker](https://docs.docker.com/storage/)
+- [Volumes compose file element](https://docs.docker.com/compose/compose-file/#volumes-top-level-element)
+- [Volumes](https://docs.docker.com/compose/compose-file/compose-file-v3/#volumes)
+- [Docker volume create](https://docs.docker.com/engine/reference/commandline/volume_create/)
+- [Create local volume with custom mount options](https://forums.docker.com/t/create-local-volume-with-custom-mount-options/117924)
 
 ### Compose file
 The Compose file is a YAML file defining services, networks, and volumes for a Docker application.
 
 [Compose File](https://docs.docker.com/compose/compose-file/)
 
-[init(PID 1)](https://docs.docker.com/compose/compose-file/#init)
+### Environment variables
+- [Environment variables in Compose](https://docs.docker.com/compose/environment-variables/)
+- [Declare default environment variables in file](https://docs.docker.com/compose/env-file/)
+
+
+## NGINX
+- [How nginx processes a request](https://nginx.org/en/docs/http/request_processing.html)
+- [sll directives](https://nginx.org/en/docs/http/ngx_http_ssl_module.html)
+- [server_name](https://nginx.org/en/docs/http/server_names.html)
+- [try_files](https://nginx.org/en/docs/http/ngx_http_core_module.html#try_files)
+
+## PHP
+- [Running phpinfo() diagnostics](https://www.gurock.com/testrail/docs/admin/howto/running-phpinfo/)
