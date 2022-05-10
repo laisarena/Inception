@@ -27,7 +27,7 @@ RUN openssl req -new -nodes -x509 \
 	-out /etc/ssl/certs/nginx-selfsigned.crt \
 	-subj "/C=BR/ST=Sao Paulo/L=Sao Paulo/O=42 School/OU=lfrasson/CN=lfrasson.42.com"
 
-ENV DOMAIN_NAME "ftserver.com" 
+ENV DOMAIN_NAME "lfrasson.42.fr" 
 
 RUN mkdir /var/www/lfrasson && \
 	mv /srcs/lfrasson /etc/nginx/sites-available/ && \

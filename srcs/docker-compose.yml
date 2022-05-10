@@ -23,13 +23,8 @@ services:
             - .env
         environment:
             - MYSQL_DATABASE=wordpress
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
         volumes:
-            - database:/var/lib/mysql
-
-volumes:
-    database:
-        driver: local
-        driver_opts:
-            type: nome
-            device: /home/lfrasson/data/mysql
-            o: bind
+            - /home/lfrasson/data/mysql:/var/lib/mysql

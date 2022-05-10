@@ -6,7 +6,7 @@
 #    By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/29 22:01:06 by lfrasson          #+#    #+#              #
-#    Updated: 2022/05/08 16:21:58 by lfrasson         ###   ########.fr        #
+#    Updated: 2022/05/08 19:21:13 by lfrasson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,9 @@ build: volumes
 
 down:
 	cd srcs/ && docker-compose -f $(COMPOSE_FILE) down 
+
+fclean:
+	sudo rm -rf $(VOLUMES_DIR)
 
 volumes: | $(DATABASE_DIR)
 
