@@ -6,38 +6,23 @@
 #    By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/29 22:01:06 by lfrasson          #+#    #+#              #
-#    Updated: 2022/05/12 21:57:23 by lfrasson         ###   ########.fr        #
+#    Updated: 2022/05/12 21:49:30 by lfrasson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-COMPOSE_FILE	:=	docker-compose.yml
-VOLUMES_DIR		:=	/home/lfrasson/data
-DATABASE_DIR	:=	$(VOLUMES_DIR)/mysql
+IMAGE		:=	wordpress
+CONTAINER	:=	wordpress
 
-build: volumes
-	cd srcs/ && docker-compose -f $(COMPOSE_FILE) up --build -d
+build:
+	docker build -t $(IMAGE) .
 
-down:
-	cd srcs/ && docker-compose -f $(COMPOSE_FILE) down 
+run:
+	docker run -d --rm --name $(CONTAINER) $(IMAGE)
 
-fclean:
-	sudo rm -rf $(VOLUMES_DIR)
+exec:
+	docker exec -it $(CONTAINER) /bin/bash
 
-volumes: | $(DATABASE_DIR)
+stop:
+	docker stop $(CONTAINER)
 
-$(DATABASE_DIR):
-	sudo mkdir -p $(DATABASE_DIR) 
-
-.PHONY:	build down
-
-nginx-exec:
-	make exec -C ./srcs/requirements/nginx
-.PHONY: nginx-exec
-
-mariadb-exec:
-	make exec -C ./srcs/requirements/mariadb
-.PHONY: mariadb-exec
-
-wordpress-exec:
-	make exec -C ./srcs/requirements/wordpress
-.PHONY: wordpress-exec
+.PHONY:	build run exec stop

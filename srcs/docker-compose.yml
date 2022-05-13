@@ -28,3 +28,18 @@ services:
             - MYSQL_PASSWORD=${MYSQL_PASSWORD}
               #volumes:
               # - /home/lfrasson/data/mysql:/var/lib/mysql
+
+    wordpress:
+        build: ./requirements/wordpress
+        image: wordpress
+        container_name: wordpress
+        restart: unless-stopped
+        env_file:
+            - .env
+        environment:
+            - MYSQL_DATABASE=wordpress
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+              #volumes:
+              # - /home/lfrasson/data/mysql:/var/lib/mysql
