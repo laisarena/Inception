@@ -9,10 +9,11 @@ RUN apt-get update; \
 	procps \
 	vim
 
-
-RUN mkdir -p /var/www/lfrasson && \
+RUN mkdir /run/php && \
+	mkdir -p /var/www/lfrasson && \
 	wget https://wordpress.org/latest.tar.gz && \
 	tar -xzvf latest.tar.gz && \
+	rm latest.tar.gz && \
 	mv wordpress /var/www/lfrasson/wordpress
 
 COPY conf/ /srcs/
@@ -20,5 +21,5 @@ COPY tools/ /usr/local/bin/
 
 EXPOSE 9000 
 
-ENTRYPOINT ["tail", "-f", "/dev/null"]
-#ENTRYPOINT ["script.sh"]
+ENTRYPOINT ["script.sh"]
+CMD ["php-fpm7.3", "-F"]
