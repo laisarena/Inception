@@ -5,7 +5,7 @@ server {
 	server_name DOMAIN_NAME www.DOMAIN_NAME;
 	
 	root /var/www/lfrasson;
-	index index.html index.htm index.php;
+	index index.php index.html index.htm;
 	
 	include snippets/self-signed.conf;
 	include snippets/ssl-params.conf;
@@ -17,7 +17,7 @@ server {
 	
 	location ~ \.php$ {
 		include snippets/fastcgi-php.conf;
-		fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+		fastcgi_pass wordpress:9000;
 	}
 }
 
