@@ -6,14 +6,6 @@ RUN apt update; \
 	apt install -y \
 	nginx \
 	openssl \
-	php7.3 \
-	php7.3-fpm \
-	php7.3-opcache \
-	php7.3-cli \
-	php7.3-gd \
-	php7.3-curl \
-	php7.3-mysql \
-	php7.3-mbstring \
 	procps \
 	vim
 
@@ -40,4 +32,3 @@ RUN mkdir /var/www/lfrasson && \
 EXPOSE 443
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
-#CMD ["service", "php7.3-fpm", "start"]
