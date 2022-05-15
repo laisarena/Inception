@@ -1,19 +1,6 @@
 version: '3'
 
 services:
-    nginx:
-        build: ./requirements/nginx
-        image: nginx
-        container_name: nginx
-        restart: unless-stopped
-        ports:
-            - "443:443"
-            - "80:80"
-        env_file:
-            - .env
-        environment:
-            - DOMAIN_NAME=${DOMAIN_NAME}
-    
     db:
         build: ./requirements/mariadb
         image: mariadb
@@ -26,10 +13,14 @@ services:
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
             - MYSQL_USER=${MYSQL_USER}
             - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-              #volumes:
-              # - /home/lfrasson/data/mysql:/var/lib/mysql
-
+        volumes:
+            - /home/lfrasson/data/mysql:/var/lib/mysql
+        networks:
+            - 42-network
+    
     wordpress:
+        depends_on:
+            - db
         build: ./requirements/wordpress
         image: wordpress
         container_name: wordpress
@@ -37,9 +28,34 @@ services:
         env_file:
             - .env
         environment:
+            - MYSQL_HOST=db:3306
             - MYSQL_DATABASE=wordpress
-            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
             - MYSQL_USER=${MYSQL_USER}
             - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-              #volumes:
-              # - /home/lfrasson/data/mysql:/var/lib/mysql
+        volumes:
+            - /home/lfrasson/data/wordpress:/var/www/lfrasson
+        networks:
+            - 42-network
+
+    nginx:
+        depends_on:
+            - wordpress
+        build: ./requirements/nginx
+        image: nginx
+        container_name: nginx
+        restart: unless-stopped
+        ports:
+            - "443:443"
+            - "80:80"
+        env_file:
+            - .env
+        environment:
+            - DOMAIN_NAME=${DOMAIN_NAME}
+        volumes:
+            - /home/lfrasson/data/wordpress:/var/www/lfrasson
+        networks:
+            - 42-network
+
+networks:
+    42-network:
+        driver: bridge
