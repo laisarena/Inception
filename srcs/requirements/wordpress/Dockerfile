@@ -26,6 +26,8 @@ RUN mkdir /run/php && \
 COPY conf/ /srcs/
 COPY tools/ /usr/local/bin/
 
+WORKDIR /var/www/lfrasson/wordpress
+
 EXPOSE 9000 
 
 ENTRYPOINT ["script.sh"]

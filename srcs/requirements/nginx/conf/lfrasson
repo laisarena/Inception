@@ -4,14 +4,14 @@ server {
 
 	server_name DOMAIN_NAME www.DOMAIN_NAME;
 	
-	root /var/www/lfrasson;
+	root /var/www/lfrasson/wordpress;
 	index index.php index.html index.htm;
 	
 	include snippets/self-signed.conf;
 	include snippets/ssl-params.conf;
 
 	location / {
-		root /var/www/lfrasson;
+		root /var/www/lfrasson/wordpress;
 		try_files $uri $uri/ =404;
 	}
 	
@@ -19,6 +19,9 @@ server {
 		include snippets/fastcgi-php.conf;
 		fastcgi_pass wordpress:9000;
 	}
+
+	access_log /var/log/nginx/nginx.vhost.access.log;
+	error_log /var/log/nginx/nginx.vhost.error.log;
 }
 
 server {

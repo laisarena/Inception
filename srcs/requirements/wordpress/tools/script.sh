@@ -1,11 +1,11 @@
 #!/bin/sh
 
-WP_PATH=/var/www/lfrasson/wordpress
+#WP_PATH=/var/www/lfrasson/wordpress
 WP_CONFIG=wp-config.php
 
 if [ ! -f "$WP_PATH/$WP_CONFIG" ]
 then
-	cd $WP_PATH
+	#cd $WP_PATH
 	mv wp-config-sample.php $WP_CONFIG
 	sed -i "s/username_here/$MYSQL_USER/g" $WP_CONFIG 
 	sed -i "s/password_here/$MYSQL_PASSWORD/g" $WP_CONFIG 
