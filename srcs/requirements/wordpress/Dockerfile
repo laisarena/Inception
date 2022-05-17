@@ -26,6 +26,8 @@ RUN mkdir /run/php && \
 COPY conf/ /srcs/
 COPY tools/ /usr/local/bin/
 
+RUN cp /srcs/www.conf /etc/php/7.3/fpm/pool.d/
+
 WORKDIR /var/www/lfrasson/wordpress
 
 EXPOSE 9000 
