@@ -104,3 +104,6 @@ The Compose file is a YAML file defining services, networks, and volumes for a D
 
 ## PHP
 - [Running phpinfo() diagnostics](https://www.gurock.com/testrail/docs/admin/howto/running-phpinfo/)
+
+
+[link error wordpress](https://www.dreamhost.com/blog/how-to-fix-wordpress-database-connection-error/)

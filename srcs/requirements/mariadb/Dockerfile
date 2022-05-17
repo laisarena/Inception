@@ -11,6 +11,10 @@ RUN apt update; \
 COPY conf/ /srcs/
 COPY tools/ /usr/local/bin/
 
+
+RUN mkdir -p /var/run/mysqld && \
+	chown -R mysql:mysql /var/run/mysqld;
+	
 EXPOSE 3306
 
 ENTRYPOINT ["script.sh"]
