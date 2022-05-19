@@ -5,6 +5,7 @@ WORKDIR /
 RUN apt update; \
 	apt install -y \
 	mariadb-server \
+	mariadb-client \
 	procps \
 	vim
 
