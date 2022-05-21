@@ -1,20 +1,19 @@
 FROM debian:buster
 
-WORKDIR /
-
-RUN apt-get update; \
-	apt-get install -y \
+RUN apt-get update && apt-get -y install \
 	wget \
+	apt-utils \
+	vim \
+	procps \
 	php7.3 \
+	# Nginx requires to handle PHP processing
 	php7.3-fpm \
 	php7.3-opcache \
 	php7.3-cli \
 	php7.3-gd \
 	php7.3-curl \
 	php7.3-mysql \
-	php7.3-mbstring \
-	procps \
-	vim
+	php7.3-mbstring
 
 RUN mkdir /run/php && \
 	mkdir -p /var/www/lfrasson && \
@@ -30,7 +29,9 @@ RUN cp /srcs/www.conf /etc/php/7.3/fpm/pool.d/
 
 WORKDIR /var/www/lfrasson/wordpress
 
-EXPOSE 9000 
-
 ENTRYPOINT ["script.sh"]
-CMD ["php-fpm7.3", "-F"]
+
+EXPOSE 9000
+
+#Force to stay in foreground and ignore daemonize option from configuration file
+CMD ["/usr/sbin/php-fpm7.3", "--nodaemonize"]

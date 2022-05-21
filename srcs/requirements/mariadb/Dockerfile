@@ -1,27 +1,21 @@
-FROM debian:buster
+FROM		debian:buster
 
-WORKDIR /
+RUN			apt-get update && apt-get install -y \
+			apt-utils \
+			mariadb-server \
+			procps \
+			vim \
+			# mariadb-client \
+			# && rm -rf /var/lib/apt/lists/* \
+			# ! To keep pid and socket for signals and comunication
+			&& mkdir -p /var/run/mysqld \
+			&& chown -R mysql:mysql /var/run/mysqld
 
-RUN apt update; \
-	apt install -y \
-	mariadb-server \
-	mariadb-client \
-	procps \
-	vim
+COPY		./tools/script.sh /usr/local/bin/
+#COPY		./conf/wordpress.sql /usr/local/bin/
 
-COPY conf/ /srcs/
-COPY tools/ /usr/local/bin/
-
-
-RUN mkdir -p /var/run/mysqld && \
-	chown -R mysql:mysql /var/run/mysqld;
-	
-EXPOSE 3306
+EXPOSE		3306
 
 ENTRYPOINT ["script.sh"]
-CMD ["mysqld"]
 
-#CMD ["mysqld_safe","--datadir='/var/lib/mysql'"]
-#CMD ["mysqld","--bind-adress=0.0.0.0"]
-# ENTRYPOINT ["mysqld", "--bind-address=0.0.0.0"]
-# ENTRYPOINT ["mysqld", "--user=mysql",  "--console"]
+CMD			["mysqld", "--bind-address=0.0.0.0"]
