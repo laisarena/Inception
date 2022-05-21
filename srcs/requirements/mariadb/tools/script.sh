@@ -9,8 +9,8 @@ then
 				 CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'; \
 				 ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD'; \
 				 GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';";	
+	mysql -u root -p $MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < wordpress.sql
 	service mysql stop;
-	
 fi
 
 exec "$@"

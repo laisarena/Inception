@@ -12,7 +12,7 @@ RUN			apt-get update && apt-get install -y \
 			&& chown -R mysql:mysql /var/run/mysqld
 
 COPY		./tools/script.sh /usr/local/bin/
-#COPY		./conf/wordpress.sql /usr/local/bin/
+COPY		./conf/wordpress.sql /
 
 EXPOSE		3306
 
