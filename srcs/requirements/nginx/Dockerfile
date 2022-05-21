@@ -10,6 +10,7 @@ RUN apt update; \
 	vim
 
 COPY conf/ /srcs/
+COPY ./tools/script.sh /usr/local/bin/
 
 RUN openssl req -new -nodes -x509 \
 	-newkey rsa:4096 \
@@ -19,15 +20,7 @@ RUN openssl req -new -nodes -x509 \
 	-out /etc/ssl/certs/nginx-selfsigned.crt \
 	-subj "/C=BR/ST=Sao Paulo/L=Sao Paulo/O=42 School/OU=lfrasson/CN=lfrasson.42.com"
 
-ENV DOMAIN_NAME "lfrasson.42.fr" 
-
-RUN mkdir /var/www/lfrasson && \
-	mv /srcs/lfrasson /etc/nginx/sites-available/ && \
-	sed -i "s/DOMAIN_NAME/$DOMAIN_NAME/g" /etc/nginx/sites-available/lfrasson && \
-	ln -s /etc/nginx/sites-available/lfrasson etc/nginx/sites-enabled/ && \
-	mv /srcs/self-signed.conf /etc/nginx/snippets/ && \
-	mv /srcs/ssl-params.conf /etc/nginx/snippets/
-
 EXPOSE 443
 
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["script.sh"]
+CMD ["nginx", "-g", "daemon off;"]
