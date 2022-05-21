@@ -23,12 +23,3 @@ server {
 	access_log /var/log/nginx/nginx.vhost.access.log;
 	error_log /var/log/nginx/nginx.vhost.error.log;
 }
-
-server {
-	listen 80;
-	listen [::]:80;
-
-	server_name DOMAIN_NAME www.DOMAIN_NAME;
-
-	return 302 https://$server_name$request_uri;
-}
