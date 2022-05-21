@@ -26,8 +26,7 @@ RUN mkdir /var/www/lfrasson && \
 	sed -i "s/DOMAIN_NAME/$DOMAIN_NAME/g" /etc/nginx/sites-available/lfrasson && \
 	ln -s /etc/nginx/sites-available/lfrasson etc/nginx/sites-enabled/ && \
 	mv /srcs/self-signed.conf /etc/nginx/snippets/ && \
-	mv /srcs/ssl-params.conf /etc/nginx/snippets/ && \
-	mv /srcs/index.php /var/www/lfrasson/
+	mv /srcs/ssl-params.conf /etc/nginx/snippets/
 
 EXPOSE 443
 
