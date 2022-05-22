@@ -6,7 +6,7 @@
 #    By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/29 22:01:06 by lfrasson          #+#    #+#              #
-#    Updated: 2022/05/16 20:59:05 by lfrasson         ###   ########.fr        #
+#    Updated: 2022/05/22 15:42:13 by lfrasson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,9 @@ down:
 
 clean:
 	docker volume prune
+	docker volume rm dbdata
+	docker volume rm wordpress
+	sudo rm -rf $(VOLUMES_DIR)
 
 fclean:
 	sudo rm -rf $(VOLUMES_DIR)
@@ -32,9 +35,19 @@ volumes: | $(DATABASE_DIR) $(WORDPRESS_DIR)
 
 $(DATABASE_DIR):
 	sudo mkdir -p $(DATABASE_DIR) 
+	docker volume create \
+		--name dbdata \
+		--opt type=nome \
+		--opt device=$(DATABASE_DIR) \
+		--opt o=bind
 
 $(WORDPRESS_DIR):
 	sudo mkdir -p $(WORDPRESS_DIR) 
+	docker volume create \
+		--name wordpress \
+		--opt type=nome \
+		--opt device=$(WORDPRESS_DIR) \
+		--opt o=bind
 
 .PHONY:	build down
 

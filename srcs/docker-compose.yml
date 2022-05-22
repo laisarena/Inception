@@ -14,7 +14,6 @@ services:
             - MYSQL_USER=${MYSQL_USER}
             - MYSQL_PASSWORD=${MYSQL_PASSWORD}
         volumes:
-            #- /home/lfrasson/data/mysql:/var/lib/mysql
             - dbdata:/var/lib/mysql
         networks:
             - 42-network
@@ -34,7 +33,6 @@ services:
             - MYSQL_USER=${MYSQL_USER}
             - MYSQL_PASSWORD=${MYSQL_PASSWORD}
         volumes:
-            #- /home/lfrasson/data/wordpress:/var/www/lfrasson/wordpress
             - wordpress:/var/www/lfrasson/wordpress
         networks:
             - 42-network
@@ -53,14 +51,15 @@ services:
         environment:
             - DOMAIN_NAME=${DOMAIN_NAME}
         volumes:
-            #- /home/lfrasson/data/wordpress:/var/www/lfrasson/wordpress
             - wordpress:/var/www/lfrasson/wordpress
         networks:
             - 42-network
 
 volumes:
-    wordpress:
     dbdata:
+        external: true
+    wordpress:
+        external: true
 
 networks:
     42-network:
