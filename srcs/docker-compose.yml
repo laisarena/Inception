@@ -50,6 +50,8 @@ services:
             - .env
         environment:
             - DOMAIN_NAME=${DOMAIN_NAME}
+            - CERTS_KEY=${CERTS_KEY}
+            - CERTS_CRT=${CERTS_CRT}
         volumes:
             - wpdata:/var/www/lfrasson/wordpress
         networks:
