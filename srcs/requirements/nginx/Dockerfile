@@ -10,9 +10,9 @@ RUN apt update; \
 	vim
 
 COPY conf/ /srcs/
-COPY ./tools/script.sh /usr/local/bin/
+COPY ./tools/nginx_entrypoint.sh /usr/local/bin/
 
 EXPOSE 443
 
-ENTRYPOINT ["script.sh"]
+ENTRYPOINT ["nginx_entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]

@@ -6,7 +6,6 @@ RUN apt-get update && apt-get -y install \
 	vim \
 	procps \
 	php7.3 \
-	# Nginx requires to handle PHP processing
 	php7.3-fpm \
 	php7.3-opcache \
 	php7.3-cli \
@@ -29,9 +28,8 @@ RUN cp /srcs/www.conf /etc/php/7.3/fpm/pool.d/
 
 WORKDIR /var/www/lfrasson/wordpress
 
-ENTRYPOINT ["script.sh"]
+ENTRYPOINT ["wordpress_entrypoint.sh"]
 
 EXPOSE 9000
 
-#Force to stay in foreground and ignore daemonize option from configuration file
 CMD ["/usr/sbin/php-fpm7.3", "--nodaemonize"]
