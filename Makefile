@@ -6,7 +6,7 @@
 #    By: lfrasson <lfrasson@student.42sp.org.b      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/29 22:01:06 by lfrasson          #+#    #+#              #
-#    Updated: 2022/05/22 17:05:21 by lfrasson         ###   ########.fr        #
+#    Updated: 2022/05/23 17:42:10 by lfrasson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ MY_HOSTS		:=	$(TOOLS_DIR)/hosts
 HOSTS			:=	/etc/hosts
 DOMAIN_NAME		:=	$(shell grep DOMAIN_NAME srcs/.env | cut -d'=' -f2)
 DOMAIN			:=	$(shell awk '/$(DOMAIN_NAME)/{print $$2}' /etc/hosts)
+VOLUMES_LIST	:=	$(shell docker volume ls -q)
 
 all: build
 
@@ -37,9 +38,10 @@ down:
 	cd srcs/ && docker-compose -f $(COMPOSE_FILE) down 
 
 clean:
+ifneq ($(VOLUMES_LIST),)
+	docker volume rm $(VOLUMES_LIST)
+endif
 	sudo rm -rf $(VOLUMES_DIR)
-	docker volume rm $(DB_VOLUME)
-	docker volume rm $(WP_VOLUME)
 
 fclean: clean
 	sudo cp $(HOSTS_BACKUP) $(HOSTS) 
